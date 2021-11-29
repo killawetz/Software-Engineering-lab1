@@ -10,36 +10,37 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            Scanner userInput = new Scanner(System.in);
-            System.out.println("Enter the amount of bitcoins: ");
-            userInput.useLocale(Locale.US);
-            double numberOfBitcoin = userInput.nextDouble();
+            while (true) {
+                Scanner userInput = new Scanner(System.in);
+                System.out.println("Enter the amount of bitcoins: ");
+                userInput.useLocale(Locale.US);
+                double numberOfBitcoin = userInput.nextDouble();
 
-            URL url = new URL("https://blockchain.info/ticker");
+                URL url = new URL("https://blockchain.info/ticker");
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
 
-            //Getting the response code
-            int responsecode = conn.getResponseCode();
-            System.out.println(responsecode);
+                //Getting the response code
+                int responsecode = conn.getResponseCode();
+                System.out.println(responsecode);
 
-            String inline = "";
-            Scanner scanner = new Scanner(url.openStream());
+                String inline = "";
+                Scanner scanner = new Scanner(url.openStream());
 
-            //Write all the JSON data into a string using a scanner
-            while (scanner.hasNext()) {
-                inline += scanner.nextLine();
+                //Write all the JSON data into a string using a scanner
+                while (scanner.hasNext()) {
+                    inline += scanner.nextLine();
+                }
+
+                JSONObject data_obj = new JSONObject(inline);
+
+                //Get the required data using its key
+                JSONObject jsonObject1 = (JSONObject) data_obj.get("USD");
+                double btcValue = jsonObject1.getDouble("last");
+                System.out.println(numberOfBitcoin + " BTC = " + btcValue * numberOfBitcoin + " USD");
             }
-
-            JSONObject data_obj = new JSONObject(inline);
-
-            //Get the required data using its key
-            JSONObject jsonObject1 = (JSONObject) data_obj.get("USD");
-            double btcValue = jsonObject1.getDouble("last");
-            System.out.println(numberOfBitcoin + " BTC = " + btcValue * numberOfBitcoin + " USD");
-
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
