@@ -3,6 +3,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -11,7 +12,8 @@ public class Main {
         try {
             Scanner userInput = new Scanner(System.in);
             System.out.println("Enter the amount of bitcoins: ");
-            int numberOfBitcoin = userInput.nextInt();
+            userInput.useLocale(Locale.US);
+            double numberOfBitcoin = userInput.nextDouble();
 
             URL url = new URL("https://blockchain.info/ticker");
 
@@ -35,8 +37,8 @@ public class Main {
 
             //Get the required data using its key
             JSONObject jsonObject1 = (JSONObject) data_obj.get("USD");
-            int btcValue = jsonObject1.getInt("last");
-            System.out.println(numberOfBitcoin + " BTC in USD equals " + btcValue * numberOfBitcoin);
+            double btcValue = jsonObject1.getDouble("last");
+            System.out.println(numberOfBitcoin + " BTC = " + btcValue * numberOfBitcoin + " USD");
 
 
         } catch (IOException ioException) {
