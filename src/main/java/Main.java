@@ -9,9 +9,11 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        Scanner userInput = new Scanner(System.in);
+        Scanner scanner = null;
+        
         try {
             while (true) {
-                Scanner userInput = new Scanner(System.in);
                 System.out.println("Enter the amount of bitcoins: ");
                 userInput.useLocale(Locale.US);
                 double numberOfBitcoin = userInput.nextDouble();
@@ -27,7 +29,7 @@ public class Main {
                 System.out.println(responsecode);
 
                 String inline = "";
-                Scanner scanner = new Scanner(url.openStream());
+                scanner = new Scanner(url.openStream());
 
                 //Write all the JSON data into a string using a scanner
                 while (scanner.hasNext()) {
@@ -44,6 +46,10 @@ public class Main {
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
+            if(scanner != null) {
+                scanner.close();
+            }
+            userInput.close();
         }
 
     }
