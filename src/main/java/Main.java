@@ -30,12 +30,14 @@ public class Main {
                     continue;
                 }
 
-                String inline = "";
                 scanner = new Scanner(url.openStream());
-
+                StringBuilder jsonBuilder = new StringBuilder();
                 while (scanner.hasNext()) {
-                    inline += scanner.nextLine();
+                    jsonBuilder.append(scanner.nextLine());
                 }
+
+
+                String inline = jsonBuilder.toString();
 
                 JSONObject data_obj = new JSONObject(inline);
 
