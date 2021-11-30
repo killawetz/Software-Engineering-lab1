@@ -25,8 +25,10 @@ public class Main {
                 conn.connect();
 
                 //Getting the response code
-                int responsecode = conn.getResponseCode();
-                System.out.println(responsecode);
+                if(conn.getResponseCode() != 200) {
+                    System.out.println("Can't get a response from the server, please try again");
+                    continue;
+                }
 
                 String inline = "";
                 scanner = new Scanner(url.openStream());
