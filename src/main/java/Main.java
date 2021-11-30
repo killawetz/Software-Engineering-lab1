@@ -31,17 +31,21 @@ public class Main {
                 String inline = "";
                 scanner = new Scanner(url.openStream());
 
-                //Write all the JSON data into a string using a scanner
                 while (scanner.hasNext()) {
                     inline += scanner.nextLine();
                 }
 
                 JSONObject data_obj = new JSONObject(inline);
 
-                //Get the required data using its key
-                JSONObject jsonObject1 = (JSONObject) data_obj.get("USD");
-                double btcValue = jsonObject1.getDouble("last");
-                System.out.println(numberOfBitcoin + " BTC = " + btcValue * numberOfBitcoin + " USD");
+                JSONObject usdJsonObject = (JSONObject) data_obj.get("USD");
+                JSONObject rubJsonObject = (JSONObject) data_obj.get("RUB");
+                JSONObject eurJsonObject = (JSONObject) data_obj.get("EUR");
+                double usdValue = usdJsonObject.getDouble("last");
+                double rubValue = rubJsonObject.getLong("last");
+                double eurValue = eurJsonObject.getDouble("last");
+                System.out.println(numberOfBitcoin + " BTC = " + usdValue * numberOfBitcoin + " USD");
+                System.out.println(numberOfBitcoin + " BTC = " + rubValue * numberOfBitcoin + " RUB");
+                System.out.println(numberOfBitcoin + " BTC = " + eurValue * numberOfBitcoin + " EUR");
             }
 
         } catch (IOException ioException) {
