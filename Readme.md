@@ -1,3 +1,5 @@
+[![Java CI with Gradle](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/ci-gradle.yml/badge.svg?branch=master)](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/ci-gradle.yml)
+
 ## Описание проекта
 
 С помощью данного сервиса можно конвертировать:
