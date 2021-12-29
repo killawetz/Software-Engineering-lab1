@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
         Scanner scanner = null;
-        
+
         try {
             while (true) {
                 System.out.println("Enter the amount of bitcoins: ");
@@ -20,22 +20,9 @@ public class Main {
 
                 URL url = new URL("https://blockchain.info/ticker");
 
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.connect();
+                HttpURLConnection conn = getHttpURLConnection(url);
 
-                //Getting the response code
-                if(conn.getResponseCode() != 200) {
-                    System.out.println("Can't get a response from the server, please try again");
-                    continue;
-                }
-
-                scanner = new Scanner(url.openStream());
-                StringBuilder jsonBuilder = new StringBuilder();
-                while (scanner.hasNext()) {
-                    jsonBuilder.append(scanner.nextLine());
-                }
-
+                StringBuilder jsonBuilder = readResponseBody(url);
 
                 String inline = jsonBuilder.toString();
 
@@ -47,18 +34,42 @@ public class Main {
                 double usdValue = usdJsonObject.getDouble("last");
                 double rubValue = rubJsonObject.getLong("last");
                 double eurValue = eurJsonObject.getDouble("last");
-                System.out.println(numberOfBitcoin + " BTC = " + usdValue * numberOfBitcoin + " USD");
-                System.out.println(numberOfBitcoin + " BTC = " + rubValue * numberOfBitcoin + " RUB");
-                System.out.println(numberOfBitcoin + " BTC = " + eurValue * numberOfBitcoin + " EUR");
+                System.out.println(numberOfBitcoin + " BTC = "
+                        + multiplyTwoNumbers(numberOfBitcoin, usdValue) + " USD");
+                System.out.println(numberOfBitcoin + " BTC = "
+                        + multiplyTwoNumbers(numberOfBitcoin, rubValue) + " RUB");
+                System.out.println(numberOfBitcoin + " BTC = "
+                        + multiplyTwoNumbers(numberOfBitcoin, eurValue) + " EUR");
             }
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
-            if(scanner != null) {
+            if (scanner != null) {
                 scanner.close();
             }
             userInput.close();
         }
 
+    }
+
+
+    public static HttpURLConnection getHttpURLConnection(URL url) throws IOException {
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.connect();
+        return conn;
+    }
+
+    public static StringBuilder readResponseBody(URL url) throws IOException {
+        Scanner scanner = new Scanner(url.openStream());
+        StringBuilder jsonBuilder = new StringBuilder();
+        while (scanner.hasNext()) {
+            jsonBuilder.append(scanner.nextLine());
+        }
+        return jsonBuilder;
+    }
+
+    public static double multiplyTwoNumbers(double numberOfBitcoin, double value) {
+        return numberOfBitcoin * value;
     }
 }
