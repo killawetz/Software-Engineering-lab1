@@ -1,6 +1,6 @@
-CI for 'main' branch:  [![Java CI with Gradle](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/ci-gradle.yml/badge.svg?branch=master)](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/ci-gradle.yml)
+CI for 'main' branch:  [![Java CI with Gradle](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/new-ci-gradle.yml/badge.svg?branch=master)](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/new-ci-gradle.yml)
 
-CI for 'develop' branch: [![Java CI with Gradle](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/ci-gradle.yml/badge.svg?branch=develop)](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/ci-gradle.yml)
+CI for 'develop' branch: [![Java CI with Gradle](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/new-ci-gradle.yml/badge.svg?branch=develop)](https://github.com/killawetz/Software-Engineering-lab1/actions/workflows/new-ci-gradle.yml)
 
 
 ## Описание проекта
